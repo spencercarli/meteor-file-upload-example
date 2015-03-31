@@ -1,20 +1,21 @@
 <template name="home">
-  <div>
-    <h1>Image Upload Example</h1>
-    {{#if uploading}}
-      <p>Uploading image...</p>
-    {{else}}
-      <input type="file" id="upload-file">
-    {{/if}}
-  </div>
+  <h1>Image Upload Example</h1>
+  {{#if uploading}}
+    <p>Uploading image...</p>
+  {{else}}
+    <input type="file" id="upload-file">
+  {{/if}}
 
   {{#if Template.subscriptionsReady}}
     {{#each photos}}
       <div>
         <a href="{{link}}">
-          <img src="{{link}}" style="width:80px;">
+          {{#if isImage}}
+            <img src="{{link}}">
+          {{/if}}
+          {{filename}}
         </a>
-        <p>{{filename}}</p>
+        <br><br>
         <a href="#" data-action="delete">Delete</a>
       </div>
     {{/each}}

@@ -32,6 +32,11 @@ Template.home.helpers({
 
   uploading: function() {
     return Session.get('uploading');
+  },
+
+  isImage: function() {
+    var types = ['image/jpeg','image/png','image/gif', 'image/tiff'];
+    return _.contains(types, this.contentType);
   }
 });
 
