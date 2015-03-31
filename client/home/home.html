@@ -1,0 +1,14 @@
+<template name="home">
+  <div>
+    <h1>Image Upload Example</h1>
+    <input type="file" id="upload-file">
+  </div>
+
+  <div>
+    {{#each photos}}
+      <a href="{{link}}">
+        <img src="{{link}}" style="width:80px;">
+      </a>
+    {{/each}}
+  </div>
+</template>
