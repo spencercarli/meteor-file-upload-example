@@ -4,6 +4,7 @@ A demo made for Meteor night school to showcase a simple file upload implementat
 ## Get Started
 
 `git clone https://github.com/spencercarli/meteor-file-upload-example.git`
+
 `cd meteor-file-upload-example && meteor`
 
 ## Packages used

@@ -1,5 +1,5 @@
 Photos = new FileCollection('photos', {
-  resumable: true,
+  resumable: true, //Enables the resumable.js API on the client
   baseURL: '/photos',
   http: [{
     method: 'get',
@@ -10,6 +10,7 @@ Photos = new FileCollection('photos', {
   }]
 });
 
+// Poor example of allow/deny rules. Allows the client to do anything to the collection without validation.
 if (Meteor.isServer) {
   Photos.allow({
     insert: function(userId, file) {
