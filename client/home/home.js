@@ -1,3 +1,8 @@
+Template.home.onCreated(function() {
+  this.subscribe('allPhotos');
+  Session.set('uploading', undefined);
+})
+
 Template.home.onRendered(function() {
   Photos.resumable.assignBrowse($('#upload-file'));
 
@@ -5,10 +10,14 @@ Template.home.onRendered(function() {
     uploadFile(file);
   });
 
-  this.autorun(function() {
-    Meteor.subscribe('allPhotos');
+  Photos.resumable.on('fileSuccess', function(file) {
+    Session.set('uploading', undefined);
   });
 
+  Photos.resumable.on('fileError', function(file) {
+    console.warn("Error uploading", file.uniqueIdentifier);
+    Session.set('uploading', undefined);
+  });
 
 });
 
@@ -19,10 +28,22 @@ Template.home.helpers({
 
   link: function() {
     return Photos.baseURL + "/" + this.md5
+  },
+
+  uploading: function() {
+    return Session.get('uploading');
+  }
+});
+
+Template.home.events({
+  'click [data-action=delete]': function(e, instance) {
+    e.preventDefault();
+    Photos.remove({_id: this._id});
   }
 });
 
 uploadFile = function(file) {
+  Session.set('uploading', true);
   Photos.insert({
     _id: file.uniqueIdentifier,
     filename: file.fileName,
